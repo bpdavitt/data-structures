@@ -2,8 +2,10 @@ var LinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
+  list.length = 0;
 
   list.addToTail = function(value) {
+    list.length++;
     var nodeObj = Node(value);
     if (list.head === null) {
       list.tail = nodeObj;
@@ -17,6 +19,7 @@ var LinkedList = function() {
   list.removeHead = function() {
     let oldHead = list.head.value;
     list.head = list.head.next;
+    list.length--;
     return oldHead;
   };
 

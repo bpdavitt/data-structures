@@ -51,5 +51,19 @@ describe('linkedList', function() {
     expect(linkedList.contains(4)).to.equal(false);
   });
 
+  it('should contain a length of the list', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(3);
+    expect(linkedList.length).to.equal(3);
+  });
+
+  it('should decrease length when items are removed', function() {
+    linkedList.addToTail(1);
+    linkedList.addToTail(2);
+    linkedList.addToTail(3);
+    linkedList.removeHead();
+    expect(linkedList.length).to.equal(2);
+  });
   // add more tests here to test the functionality of linkedList
 });
