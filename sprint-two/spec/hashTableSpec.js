@@ -47,6 +47,12 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  it('should use an array as a bucket', function() {
+    hashTable.insert('Steven', 'Tyler');
+    var index = getIndexBelowMaxForKey('Steven', hashTable._limit);
+    expect(Array.isArray(hashTable._storage.get(index))).to.equal(true);
+  });
+
   // (Advanced! Remove the extra "x" when you want the following tests to run)
   xit ('should double in size when needed', function() {
     _.each(people, function(person) {
