@@ -27,6 +27,20 @@ treeMethods.contains = function(target) {
   return false;
 };
 
+treeMethods.depth = function(target) {
+  
+  if (!this.contains(target)) {
+    return -1;
+  }
+  if (this.value === target) {
+    return 0;
+  }
+  for(let i = 0; i < this.children.length; i++) {
+    if (this.children[i].contains(target)) {
+      return 1 + this.children[i].depth(target);
+    }
+  }
+};
 
 
 /*
