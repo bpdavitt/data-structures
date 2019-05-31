@@ -68,4 +68,20 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  it('should have a size property', function() {
+    graph.addNode(2);
+    expect(graph.size).to.equal(1);
+    graph.addNode(3);
+    expect(graph.size).to.equal(2);
+  });
+
+  it('size should be reduced when nodes are removed', function() {
+    graph.addNode(2);
+    expect(graph.size).to.equal(1);
+    graph.addNode(3);
+    expect(graph.size).to.equal(2);
+    graph.removeNode(3);
+    expect(graph.size).to.equal(1);
+  });
 });
