@@ -4,17 +4,18 @@ var DoublyLinkedList = function() {
   list.tail = null;
   list.length = 0;
 
-  // list.addToHead = function(value) {
-  //   list.length++;
-  //   var nodeObj = Node(value);
-  //   if (list.head === null) {
-  //     list.tail = nodeObj;
-  //     list.head = nodeObj;
-  //     return undefined;
-  //   }
-  //   list.tail.next = nodeObj;
-  //   list.head = nodeObj;
-  // };
+  list.addToHead = function(value) {
+    list.length++;
+    var nodeObj = Node(value);
+    if (list.head === null) {
+      list.tail = nodeObj;
+      list.head = nodeObj;
+      return undefined;
+    }
+    list.head.previous = nodeObj;
+    nodeObj.next = list.head;
+    list.head = nodeObj;
+  };
 
   list.addToTail = function(value) {
     list.length++;
@@ -40,6 +41,19 @@ var DoublyLinkedList = function() {
       list.head.previous = null;
     }
     return oldHead;
+  };
+
+  list.removeTail = function(){
+    let oldTail = list.tail.value;
+    list.tail = list.tail.previous;
+    list.length--;
+    if (list.length === 0){
+      list.head = null;
+      list.tail = null;
+    } else {
+      list.tail.next = null;
+    }
+    return oldTail;
   };
 
   list.contains = function(target, node) {
