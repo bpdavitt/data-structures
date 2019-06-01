@@ -9,16 +9,19 @@ class Queue {
     return this.count;
   }
   enqueue(value) {
-    this.count++;
     this.storage[this.count] = value;
+    this.count++;
   }
   dequeue() {
     this.count--;
+    if (this.count < 0) {
+      this.count = 0;
+    }
     let dequeued = this.storage['0'];
     for(let keys in this.storage) {
       this.storage[keys] = this.storage[Number(keys) + 1];
     }
-    delete this.storage[this.count - 1];
+    delete this.storage[this.count];
     return dequeued;
   }
 
