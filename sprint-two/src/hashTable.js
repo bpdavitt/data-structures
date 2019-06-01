@@ -8,28 +8,42 @@ var HashTable = function(limit) {
 };
 
 HashTable.prototype.insert = function(k, v) {
-  this._count++;
-  if (this._count/this._limit >= 0.75){
-    this.resize('expand');
-  }
+  //grab bucket
   var index = getIndexBelowMaxForKey(k, this._limit);
-  if (this._storage.get(index)) {
-    let bucket = this._storage.get(index);
-    for (let ele of bucket) {
-      if (ele[0] === k) {
-        ele[1] = v;
-        return undefined;
-      }
+  let bucket = this._storage.get(index);
+  //if undefined create bucket []
+  if(!bucket){
+    bucket = [];
+    this._storage.set(index, bucket);
+  }
+  let found = false;
+  // iterate over bucket
+  for(let i = 0; i < bucket.length; i++) {
+    //if found replace value
+    let key = bucket[i][0];
+    if(key === k){
+      bucket[i][1] = v;
+      found = true;
+      break;
     }
-    bucket.push([k,v]);    
-  } else {
-    this._storage.set(index, [[k,v]]);
+  }
+  if (!found) {
+    bucket.push([k,v]);
+    // console.log(bucket);
+    this._count++;
+    if (this._count >= this._limit * 0.75){
+      this.resize('expand');
+    }
   }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   let bucket = this._storage.get(index);
+  console.log(bucket);
+  if (!bucket) {
+    return undefined;
+  }
   for (let ele of bucket) {
     if (ele[0] === k) {
       return ele[1];
