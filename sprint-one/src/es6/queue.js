@@ -3,26 +3,25 @@ class Queue {
   // but try not not reference your old code in writing the new style.
   constructor() {
     this.storage = {};
-    this.count = 0;
-  }
-  size() {
-    return this.count;
+    this.start = 0;
+    this.end = 0;
   }
   enqueue(value) {
-    this.storage[this.count] = value;
-    this.count++;
-  }
+    this.storage[this.end] = value;
+    this.end++;
+  };
+
   dequeue() {
-    this.count--;
-    if (this.count < 0) {
-      this.count = 0;
+    if(this.size() > 0){
+      var dequeued = this.storage[this.start];
+      delete this.storage[this.start];
+      this.start++;
+      return dequeued;
     }
-    let dequeued = this.storage['0'];
-    for(let keys in this.storage) {
-      this.storage[keys] = this.storage[Number(keys) + 1];
-    }
-    delete this.storage[this.count];
-    return dequeued;
-  }
+  };
+
+  size() {
+    return this.end - this.start;
+  };
 
 }
